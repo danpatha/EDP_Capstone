@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import Sock from "./components/Sock";
 import sock_data from './assets/sock.json';
 import promo_data from './assets/promo.json';
+import categories_data from './assets/categories.json'
 import Footer from "./components/Footer";
 import Search from "./components/Search";
 import Promotion from "./components/Promotion";
+import Categories from "./components/Categories";
 import Home from "./components/Home";
 import {
   BrowserRouter as Router,
@@ -59,16 +61,17 @@ function App() {
       <Router>
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
           <div className="container-fluid">
-            <a className="navbar-brand" href="#">TSE</a>
+            <a className="navbar-brand" href="#">The Sports Supply</a>
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon"></span>
             </button>
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
               <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                 <li className="nav-item">
-                  <Link className="nav-link" to="/">
+                <Search setData={setData} />
+                  {/* <Link className="nav-link" to="/">
                     Home
-                  </Link>
+                  </Link> */}
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" to="/about">
@@ -77,11 +80,11 @@ function App() {
                 </li>
                 <li className="nav-item dropdown">
                   <Link className="nav-link" to="/add">
-                    Add Sock
+                  Cart 
                   </Link>
                 </li>
               </ul>
-              <Search setData={setData} />
+             
             </div>
           </div>
         </nav>
@@ -89,8 +92,11 @@ function App() {
 
           <div className="container-fluid">
             <div className="row">
+            
               <Featured data={promo_data} />
+              
               <hr />
+              <Categories data={categories_data}/>
               <Routes>
                 <Route exact path="/" element={<Home data={data} handleDelete={handleDelete} page={page} setPage={setPage} />} />
                 <Route path="/about" element={<About />} />

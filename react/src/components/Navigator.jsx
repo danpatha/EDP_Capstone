@@ -11,8 +11,8 @@ const Navigator = (props) => {
 
     return (
         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
-            <button className='btn btn-primary' onClick={handlePreviousPage}>Back</button>
-            <button className='btn btn-primary' onClick={handleNextPage}>Next</button>
+            {/* <button className='btn btn-primary' onClick={handlePreviousPage}>Back</button>
+            <button className='btn btn-primary' onClick={handleNextPage}>Next</button> */}
         </div>
     );
 };
