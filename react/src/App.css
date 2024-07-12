@@ -3,6 +3,11 @@
   margin: 0 auto;
 }
 
+.featuredImages{
+  width:200px;
+  height:300px;
+}
+
 .card {
   padding: 1em;
 }
