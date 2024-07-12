@@ -6,7 +6,7 @@ const Promotion = (props) => {
         <div className="card" a href="#">
             <div className="card bg-light">
                 <div className="card-text">{props.data.feature}</div>
-                <div className="card-text">{props.data.benefit}</div>
+                <img className= "featuredImages" src={props.data.image}></img>
             </div>
         </div>
     );
