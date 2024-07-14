@@ -14,19 +14,50 @@ app.use(cors()); // Enable CORS for all routes
 app.use(express.json()); // Middleware to parse JSON bodies
 const PORT = 3000;
 
-// Endpoint to read and send JSON file content
-app.get('/socks', async (req, res) => {
+app.get('/socks/featured/:limit', async (req, res) => {
+    try {
+        let {limit} = req.params;
+        limit = +limit; // The + converts limit from a string to integer.
+        const client = await MongoClient.connect(url);
+        const db = client.db(dbName);
+        const collection = db.collection(collectionName);
+        const socks = await collection.find({})
+        .sort({ Popularity: -1 })  // Sort by 'Popularity' in descending order
+        .limit(limit)             // Limit the results to the specified number
+        .toArray();
+        res.json(socks);
+    } catch (err) {
+        console.error('Error:', err);
+        res.status(500).send('Hmm, there was something wrong with loading our most popular items');
+    }
+});
+
+app.get('/socks/categories', async (req, res) => {
     try {
         const client = await MongoClient.connect(url);
         const db = client.db(dbName);
         const collection = db.collection(collectionName);
-        const socks = await collection.find({}).toArray();
-        res.json(socks);
+        const categories = await collection.distinct("Categories");
+        res.json(categories);
     } catch (err) {
         console.error("Error:", err);
-        res.status(500).send("Hmmm, something smells... No socks for you! ☹");
+        res.status(500).send("Hmmm, there was something wrong with loading our categories");
     }
 });
+
+// app.get('/socks', async (req, res) => {
+//     try {
+//         const client = await MongoClient.connect(url);
+//         const db = client.db(dbName);
+//         const collection = db.collection(collectionName);
+//         const socks = await collection.find({}).toArray();
+//         res.json(socks);
+//     } catch (err) {
+//         console.error("Error:", err);
+//         res.status(500).send("Hmmm, something smells... No socks for you! ☹");
+//     }
+// });
+
 
 app.post('/socks/search', async (req, res) => {
     try {
@@ -35,7 +66,7 @@ app.post('/socks/search', async (req, res) => {
         const db = client.db(dbName);
         const collection = db.collection(collectionName);
         const regex = new RegExp(searchTerm, 'i'); // Create a case-insensitive regular expression
-        const socks = await collection.find({ 'sockDetails.color': regex }).toArray();
+        const socks = await collection.find({ 'brand': regex }).toArray();
         res.json(socks);
     } catch (err) {
         console.error('Error:', err);
@@ -78,11 +109,16 @@ app.post('/socks', async (req, res) => {
 app.get('/socks/:page/:limit', async (req, res) => {
     try {
         let { page, limit } = req.params;
+        const{category} = req.query
         limit = +limit; // The + converts limit from a string to integer.
         const client = await MongoClient.connect(url);
         const db = client.db(dbName);
         const collection = db.collection(collectionName);
-        const socks = await collection.find({}).skip((page - 1) * limit).limit(limit).toArray();
+        const filter = {}
+        if(category){
+            filter.Categories = category
+        }
+        const socks = await collection.find(filter).skip((page - 1) * limit).limit(limit).toArray();
         res.json(socks);
     } catch (err) {
         console.error('Error:', err);
@@ -90,20 +126,34 @@ app.get('/socks/:page/:limit', async (req, res) => {
     }
 });
 
-app.get('/socks/:color', async (req, res) => {
-    try {
-        const { color } = req.params;
+// app.get('/socks/:color', async (req, res) => {
+//     try {
+//         const { color } = req.params;
 
-        const data = await fs.readFile('../data/socks.json', 'utf8');
-        const jsonObj = JSON.parse(data);
-        const result = jsonObj.filter(sock => sock.color.toUpperCase() === color.toUpperCase());
-        if(result.length === 0) {
-            return res.status(404).send("No socks found with that color.");
-        }
-        res.json(result);
+//         const data = await fs.readFile('../data/socks.json', 'utf8');
+//         const jsonObj = JSON.parse(data);
+//         const result = jsonObj.filter(sock => sock.color.toUpperCase() === color.toUpperCase());
+//         if(result.length === 0) {
+//             return res.status(404).send("No socks found with that color.");
+//         }
+//         res.json(result);
+//     } catch (err) {
+//         console.error("Error:", err);
+//         res.status(500).send("Hmmm, something smells... No socks for you! ☹");
+//     }
+// });
+
+app.get('/socks/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const client = await MongoClient.connect(url);
+        const db = client.db(dbName);
+        const collection = db.collection(collectionName);
+        const sock = await collection.findOne({ _id: new ObjectId(id) });
+        res.json(sock);
     } catch (err) {
-        console.error("Error:", err);
-        res.status(500).send("Hmmm, something smells... No socks for you! ☹");
+        console.error('Error:', err);
+        res.status(500).send('Hmm, something doesn\'t smell right... Error deleting sock');
     }
 });
 

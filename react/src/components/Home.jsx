@@ -2,9 +2,11 @@ import Navigator from "./Navigator";
 import Sock from "./Sock";
 
 const Home = (props) => {
+    console.log(props,"Home")
     return (
         <>
-        <Navigator setPage={props.setPage} page={props.page} />
+        {!props.searchTerm && <Navigator setPage={props.setPage} page={props.page} /> 
+}
         <div className="card-container" style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
             {
                 props.data.map((sock) => (

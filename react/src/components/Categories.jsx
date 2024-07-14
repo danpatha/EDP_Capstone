@@ -1,6 +1,7 @@
 import React from 'react';
 import Acategory from './Acategory';
 
+
 const Categories = (props) => {
 
     return (
@@ -9,7 +10,7 @@ const Categories = (props) => {
                 <h2>Browse our Categories</h2>
                 {
                 props.data.map((category) => (
-                    <Acategory key={category._id} data={category} />
+                    <Acategory key={category} data={category} />
                 ))
             }
                 <div className="card-text"> </div>

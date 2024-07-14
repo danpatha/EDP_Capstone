@@ -8,14 +8,15 @@ import Navigator from './Navigator';
 
 
 
-const ProductPage = (props) => {
-const {id} = useParams()
-const [data, setData] = useState(null);
+const ProductsList = () => {
+const {category} = useParams()
+const [data, setData] = useState([]);
+const [page, setPage] = useState(1); // State to store the current page number
 
 useEffect(() => {
   const fetchData = async () => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_SOCKS_API_URL}/${id}`);
+      const response = await fetch(`${import.meta.env.VITE_SOCKS_API_URL}/${page}/10?category=${category}`);
       if (!response.ok) {
         throw new Error('Data could not be fetched!');
       }
@@ -27,24 +28,20 @@ useEffect(() => {
   };
 
   fetchData();
-}, [id]);
-
-const onclick = () =>{
-    const nextCart = props.cart.items
-    nextCart.push(data)
-   props.setCart({...props.cart,items:nextCart})
-}
-//  if(data===null){
-//     return
-//  }
+}, [page,category]);
 
     return (
       <div className="card-container" style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
-             { data && <Sock data={data} /> }
-             <button onClick={() => onclick()}>Add to Cart</button>
+         <Navigator setPage={setPage} page={page} />
+      {
+          data.map((sock) => (
+              <Sock key={sock._id} data={sock} />
+          ))
+      }
+      <Navigator setPage={setPage} page={page} />
   </div>
     
     );
 };
 
-export default ProductPage;
+export default ProductsList;
