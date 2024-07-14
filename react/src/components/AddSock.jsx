@@ -65,7 +65,7 @@ const AddSock = () => {
             }
 
             const data = await response.json();
-            console.log(data);
+            // console.log(data);
             // Handle post submission logic (like showing a success message)
         } catch (error) {
             console.error("Error posting data", error);

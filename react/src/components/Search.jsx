@@ -5,7 +5,7 @@ const Search = ({setData, searchTerm, setSearchTerm}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        fetch(`${import.meta.env.VITE_SOCKS_API_URL}/search`, {
+        fetch(`${import.meta.env.VITE_SPORTS_API_URL}/search`, {
             method: "POST",
             body: JSON.stringify({ searchTerm }),
             headers: {
@@ -16,7 +16,7 @@ const Search = ({setData, searchTerm, setSearchTerm}) => {
             .then((data) => {
                 // Handle the response data
                 setData(data);
-                console.log(data);
+                // console.log(data);
             })
             .catch((error) => {
                 // Handle any errors

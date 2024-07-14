@@ -1,8 +1,8 @@
 import Navigator from "./Navigator";
-import Sock from "./Sock";
+import SportingGoodsList from "./SportingGoodsList";
 
 const Home = (props) => {
-    console.log(props,"Home")
+    // console.log(props,"Home")
     return (
         <>
         {!props.searchTerm && <Navigator setPage={props.setPage} page={props.page} /> 
@@ -10,7 +10,7 @@ const Home = (props) => {
         <div className="card-container" style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
             {
                 props.data.map((sock) => (
-                    <Sock key={sock._id} data={sock} handleDelete={props.handleDelete} />
+                    <SportingGoodsList key={sock._id} data={sock} handleDelete={props.handleDelete} />
                 ))
             }
         </div>
