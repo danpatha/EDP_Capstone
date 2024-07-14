@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from "react";
-import Sock from "./components/Sock";
+import SportingGoodsList from './components/SportingGoodsList';
 import sock_data from './assets/sock.json';
 import promo_data from './assets/promo.json';
 import categories_data from './assets/categories.json'
 import Footer from "./components/Footer";
+import FeaturedSpecific from "./components/FeaturedSpecific";
+
+import React, { useState, useEffect } from "react";
 import Search from "./components/Search";
-import Promotion from "./components/Promotion";
 import Categories from "./components/Categories";
 import Home from "./components/Home";
 import {
@@ -18,7 +19,7 @@ import About from "./components/About";
 import Featured from "./components/Featured";
 import AddSock from "./components/AddSock";
 import ProductsList from "./components/ProductsList";
-import ProductPage from "./components/ProductPage";
+import ProductSpecific from "./components/ProductSpecific";
 
 const initialCart = {
 items:[], 
@@ -40,7 +41,7 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_SOCKS_API_URL}/featured/5`);
+        const response = await fetch(`${import.meta.env.VITE_SPORTS_API_URL}/featured/5`);
         if (!response.ok) {
           throw new Error('featured data could not be fetched!');
         }
@@ -58,7 +59,7 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_SOCKS_API_URL}/categories`);
+        const response = await fetch(`${import.meta.env.VITE_SPORTS_API_URL}/categories`);
         if (!response.ok) {
           throw new Error('category data could not be fetched!');
         }
@@ -76,26 +77,26 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_SOCKS_API_URL}/${page}/10`);
+        const response = await fetch(`${import.meta.env.VITE_SPORTS_API_URL}/${page}/10`);
         if (!response.ok) {
           throw new Error('Data could not be fetched!');
         }
         const json_response = await response.json();
         setData(json_response);
       } catch (error) {
-        console.error('Error fetching socks:', error);
+        console.error('Error fetching sporting goods:', error);
       }
     };
 
     fetchData();
   }, [page]);
 
- console.log(cart)
- 
+//  console.log(cart)
+
   const handleDelete = async (sockId) => {
     try {
       // Make an API request to delete the sock with the given sockId
-      const response = await fetch(`${import.meta.env.VITE_SOCKS_API_URL}/${sockId}`, {
+      const response = await fetch(`${import.meta.env.VITE_SPORTS_API_URL}/${sockId}`, {
         method: 'DELETE',
       });
       if (!response.ok) {
@@ -155,7 +156,7 @@ function App() {
                 <Route path="/about" element={<About />} />
                 <Route path="/add" element={<AddSock />} />
                 <Route path="/products/:category" element={<ProductsList/>}/>
-                <Route path="/product/:id" element={<ProductPage cart={cart} setCart={setCart}/>}/>
+                <Route path="/product/:id" element={<ProductSpecific cart={cart} setCart={setCart}/>}/>
               </Routes>
               <footer className={import.meta.env.VITE_ENVIRONMENT === "development" ? "bg-yellow" : import.meta.env.VITE_ENVIRONMENT === "production" ? "bg-green" : ""}>
                 {/* <div><strong>{import.meta.env.VITE_ENVIRONMENT.toUpperCase()}</strong></div>  */}

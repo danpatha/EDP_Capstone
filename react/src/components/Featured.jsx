@@ -1,4 +1,4 @@
-import Promotion from "./Promotion";
+import FeaturedSpecific from "./FeaturedSpecific";
 
 const Featured = (props) => {
     return (
@@ -8,7 +8,7 @@ const Featured = (props) => {
 
                 {
                     props.data.map((promo) => (
-                        <Promotion key={promo.id} data={promo} />
+                        <FeaturedSpecific key={promo.id} data={promo} />
                     ))
                 }
             </div>

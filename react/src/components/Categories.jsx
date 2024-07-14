@@ -1,5 +1,5 @@
 import React from 'react';
-import Acategory from './Acategory';
+import CategorySpecific from './CategorySpecific';
 
 
 const Categories = (props) => {
@@ -10,7 +10,7 @@ const Categories = (props) => {
                 <h2>Browse our Categories</h2>
                 {
                 props.data.map((category) => (
-                    <Acategory key={category} data={category} />
+                    <CategorySpecific key={category} data={category} />
                 ))
             }
                 <div className="card-text"> </div>

@@ -2,7 +2,7 @@ import React, {useEffect,useState} from 'react';
 import {
     Link, useParams
   } from "react-router-dom";
-import Sock from './Sock';
+import SportingGoodsList from './SportingGoodsList';
 import Navigator from './Navigator';
   
 
@@ -16,14 +16,14 @@ const [page, setPage] = useState(1); // State to store the current page number
 useEffect(() => {
   const fetchData = async () => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_SOCKS_API_URL}/${page}/10?category=${category}`);
+      const response = await fetch(`${import.meta.env.VITE_SPORTS_API_URL}/${page}/10?category=${category}`);
       if (!response.ok) {
         throw new Error('Data could not be fetched!');
       }
       const json_response = await response.json();
       setData(json_response);
     } catch (error) {
-      console.error('Error fetching socks:', error);
+      console.error('Error fetching producsts:', error);
     }
   };
 
@@ -35,7 +35,7 @@ useEffect(() => {
          <Navigator setPage={setPage} page={page} />
       {
           data.map((sock) => (
-              <Sock key={sock._id} data={sock} />
+              <SportingGoodsList key={sock._id} data={sock} />
           ))
       }
       <Navigator setPage={setPage} page={page} />

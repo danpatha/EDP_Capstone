@@ -14,25 +14,25 @@ app.use(cors()); // Enable CORS for all routes
 app.use(express.json()); // Middleware to parse JSON bodies
 const PORT = 3000;
 
-app.get('/socks/featured/:limit', async (req, res) => {
+app.get('/sports/featured/:limit', async (req, res) => {
     try {
         let {limit} = req.params;
         limit = +limit; // The + converts limit from a string to integer.
         const client = await MongoClient.connect(url);
         const db = client.db(dbName);
         const collection = db.collection(collectionName);
-        const socks = await collection.find({})
+        const sports = await collection.find({})
         .sort({ Popularity: -1 })  // Sort by 'Popularity' in descending order
         .limit(limit)             // Limit the results to the specified number
         .toArray();
-        res.json(socks);
+        res.json(sports);
     } catch (err) {
         console.error('Error:', err);
         res.status(500).send('Hmm, there was something wrong with loading our most popular items');
     }
 });
 
-app.get('/socks/categories', async (req, res) => {
+app.get('/sports/categories', async (req, res) => {
     try {
         const client = await MongoClient.connect(url);
         const db = client.db(dbName);
@@ -59,22 +59,22 @@ app.get('/socks/categories', async (req, res) => {
 // });
 
 
-app.post('/socks/search', async (req, res) => {
+app.post('/sports/search', async (req, res) => {
     try {
         const { searchTerm } = req.body;
         const client = await MongoClient.connect(url);
         const db = client.db(dbName);
         const collection = db.collection(collectionName);
         const regex = new RegExp(searchTerm, 'i'); // Create a case-insensitive regular expression
-        const socks = await collection.find({ 'brand': regex }).toArray();
-        res.json(socks);
+        const sports = await collection.find({ 'brand': regex }).toArray();
+        res.json(sports);
     } catch (err) {
         console.error('Error:', err);
-        res.status(500).send('Hmm, something doesn\'t smell right... Error searching for socks');
+        res.status(500).send('Hmm, and error searching for sporting goods.');
     }
 });
 
-app.delete('/socks/:id', async (req, res) => {
+app.delete('/sports/:id', async (req, res) => {
     try {
         const { id } = req.params;
         const client = await MongoClient.connect(url);
@@ -92,7 +92,7 @@ app.delete('/socks/:id', async (req, res) => {
     }
 });
 
-app.post('/socks', async (req, res) => {
+app.post('/sports', async (req, res) => {
     try {
         const sock  = req.body;
         const client = await MongoClient.connect(url);
@@ -106,7 +106,7 @@ app.post('/socks', async (req, res) => {
     }
 });
 
-app.get('/socks/:page/:limit', async (req, res) => {
+app.get('/sports/:page/:limit', async (req, res) => {
     try {
         let { page, limit } = req.params;
         const{category} = req.query
@@ -118,11 +118,11 @@ app.get('/socks/:page/:limit', async (req, res) => {
         if(category){
             filter.Categories = category
         }
-        const socks = await collection.find(filter).skip((page - 1) * limit).limit(limit).toArray();
-        res.json(socks);
+        const sports = await collection.find(filter).skip((page - 1) * limit).limit(limit).toArray();
+        res.json(sports);
     } catch (err) {
         console.error('Error:', err);
-        res.status(500).send('Hmm, something doesn\'t smell right... Error fetching socks');
+        res.status(500).send('Hmm, error fetching sports equipment.');
     }
 });
 
@@ -143,14 +143,14 @@ app.get('/socks/:page/:limit', async (req, res) => {
 //     }
 // });
 
-app.get('/socks/:id', async (req, res) => {
+app.get('/sports/:id', async (req, res) => {
     try {
         const { id } = req.params;
         const client = await MongoClient.connect(url);
         const db = client.db(dbName);
         const collection = db.collection(collectionName);
-        const sock = await collection.findOne({ _id: new ObjectId(id) });
-        res.json(sock);
+        const sports = await collection.findOne({ _id: new ObjectId(id) });
+        res.json(sports);
     } catch (err) {
         console.error('Error:', err);
         res.status(500).send('Hmm, something doesn\'t smell right... Error deleting sock');
@@ -182,7 +182,7 @@ app.post('/user', async (req, res) => {
     }
 });
 
-app.delete('/socks/:id', async (req, res) => {
+app.delete('/sports/:id', async (req, res) => {
     try {
         const { id } = req.params;
         console.log('Deleting sock with ID:', id);
