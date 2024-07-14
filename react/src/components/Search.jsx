@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-const Search = (props) => {
-    const [searchTerm, setSearchTerm] = useState('');
+const Search = ({setData, searchTerm, setSearchTerm}) => {
+    
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -15,7 +15,7 @@ const Search = (props) => {
             .then((response) => response.json())
             .then((data) => {
                 // Handle the response data
-                props.setData(data);
+                setData(data);
                 console.log(data);
             })
             .catch((error) => {

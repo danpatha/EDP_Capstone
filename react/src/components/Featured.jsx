@@ -3,7 +3,7 @@ import Promotion from "./Promotion";
 const Featured = (props) => {
     return (
         <> 
-            <h5>Featured Sportings Goods</h5>
+            <h5>Our Most Popular Items</h5>
             <div className="card-container d-flex flex-row justify-content-start" style={{ gap: "20px", padding: "20px" }}>
 
                 {
