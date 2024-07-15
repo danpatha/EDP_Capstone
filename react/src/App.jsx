@@ -20,6 +20,7 @@ import Featured from "./components/Featured";
 import AddSock from "./components/AddSock";
 import ProductsList from "./components/ProductsList";
 import ProductSpecific from "./components/ProductSpecific";
+import Cart from './components/Cart';
 
 const initialCart = {
 items:[], 
@@ -133,10 +134,11 @@ function App() {
                   </Link>
                 </li>
                 <li className="nav-item dropdown">
-                  <Link className="nav-link" to="/add">
+                  <Link className="nav-link" to="/cart">
                   Cart 
                   </Link>
                 </li>
+                <li> <p>{cart.items.length}</p> </li>
               </ul>
              
             </div>
@@ -154,7 +156,7 @@ function App() {
               <Routes>
                 <Route exact path="/" element={<Home data={data} searchTerm={searchTerm} handleDelete={handleDelete} page={page} setPage={setPage} />} />
                 <Route path="/about" element={<About />} />
-                <Route path="/add" element={<AddSock />} />
+                <Route path="/cart" element={<Cart cart={cart} setCart={setCart} />} />
                 <Route path="/products/:category" element={<ProductsList/>}/>
                 <Route path="/product/:id" element={<ProductSpecific cart={cart} setCart={setCart}/>}/>
               </Routes>
