@@ -3,9 +3,10 @@ import { promises as fs } from 'fs';
 import { MongoClient, ObjectId } from 'mongodb';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import {PythonShell} from 'python-shell';
 
 dotenv.config();
-const url = process.env.MONGO_DB_URL;
+const url = "mongodb://localhost:27017";
 const dbName = process.env.MONGO_DB;
 const collectionName = process.env.MONGO_DB_COLLECTION;
 
@@ -81,10 +82,26 @@ app.post('/sports/cart', async (req, res) => {
         const db = client.db(dbName);
         const collection = db.collection('cart');
         const result = await collection.insertOne(product);
+        PythonShell.run('C:\\bootcamp capstone\\EDP_Capstone\\python\\app.py', null).then(messages=>{
+            console.log('finished');
+          });
         //res.status(201).send(`{"_id":"${result.insertedId}"}`);
     } catch (err) {
         console.error('Error:', err);
-        res.status(500).send('Hmm, something doesn\'t smell right... Error adding sock');
+        res.status(500).send('Hmm, something doesn\'t smell right... Error adding product');
+    }
+});
+app.get('/sports/recs', async (req, res) => {
+    try {
+        const product  = req.body;
+        const client = await MongoClient.connect(url);
+        const db = client.db(dbName);
+        const collection = db.collection('recommended');
+        const result = await collection.find();
+        res.json(result);
+    } catch (err) {
+        console.error('Error:', err);
+        res.status(500).send('Hmm, something doesn\'t smell right... Error showing products');
     }
 });
 
