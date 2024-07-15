@@ -33,12 +33,13 @@ useEffect(() => {
     return (
       <div className="card-container" style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
          <Navigator setPage={setPage} page={page} />
+         
       {
           data.map((sock) => (
               <SportingGoodsList key={sock._id} data={sock} />
           ))
       }
-      <Navigator setPage={setPage} page={page} />
+    
   </div>
     
     );

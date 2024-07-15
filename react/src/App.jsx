@@ -33,8 +33,8 @@ function App() {
   const [data, setData] = useState([]);
   const [page, setPage] = useState(1); // State to store the current page number
 
-  const [categoryData, setCategoryData] = useState([]);
-  const [category, setCategory] = useState();
+  // const [categoryData, setCategoryData] = useState([]);
+  // const [category, setCategory] = useState();
 
   const [featuredData, setfeaturedData] = useState([]);
   const [featured, setFeatured] = useState();
@@ -57,40 +57,40 @@ function App() {
   }, [featured]);
 
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`${import.meta.env.VITE_SPORTS_API_URL}/categories`);
-        if (!response.ok) {
-          throw new Error('category data could not be fetched!');
-        }
-        const json_response = await response.json();
-        setCategoryData(json_response);
-      } catch (error) {
-        console.error('Error fetching categories:', error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await fetch(`${import.meta.env.VITE_SPORTS_API_URL}/categories`);
+  //       if (!response.ok) {
+  //         throw new Error('category data could not be fetched!');
+  //       }
+  //       const json_response = await response.json();
+  //       setCategoryData(json_response);
+  //     } catch (error) {
+  //       console.error('Error fetching categories:', error);
+  //     }
+  //   };
 
-    fetchData();
-  }, [category]);
+  //   fetchData();
+  // }, [category]);
 
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`${import.meta.env.VITE_SPORTS_API_URL}/${page}/10`);
-        if (!response.ok) {
-          throw new Error('Data could not be fetched!');
-        }
-        const json_response = await response.json();
-        setData(json_response);
-      } catch (error) {
-        console.error('Error fetching sporting goods:', error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await fetch(`${import.meta.env.VITE_SPORTS_API_URL}/${page}/10`);
+  //       if (!response.ok) {
+  //         throw new Error('Data could not be fetched!');
+  //       }
+  //       const json_response = await response.json();
+  //       setData(json_response);
+  //     } catch (error) {
+  //       console.error('Error fetching sporting goods:', error);
+  //     }
+  //   };
 
-    fetchData();
-  }, [page]);
+  //   fetchData();
+  // }, [page]);
 
 //  console.log(cart)
 
@@ -152,10 +152,11 @@ function App() {
               <Featured data={featuredData} featured = {featured} setFeatured = {setFeatured}/>
               
               <hr />
-              <Categories data={categoryData}/>
+              {/* <Categories data={categoryData}/> */}
               <Routes>
                 <Route exact path="/" element={<Home data={data} searchTerm={searchTerm} handleDelete={handleDelete} page={page} setPage={setPage} />} />
                 <Route path="/about" element={<About />} />
+                <Route path="/search" element={<Search/>}/>
                 <Route path="/cart" element={<Cart cart={cart} setCart={setCart} />} />
                 <Route path="/products/:category" element={<ProductsList/>}/>
                 <Route path="/product/:id" element={<ProductSpecific cart={cart} setCart={setCart}/>}/>

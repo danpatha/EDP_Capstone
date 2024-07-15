@@ -13,5 +13,5 @@ loaded_model = pickle.load(open('NearestNeighbors.pkl', 'rb'))
 in_cart = db.cart.find()
 
 res = loaded_model.kneighbors(in_cart,return_distance=False)
-db.featured.delete_many({})
-db.featured.insert_many(res)
+db.recommended.delete_many({})
+db.recommended.insert_many(res)
