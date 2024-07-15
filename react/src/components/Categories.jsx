@@ -3,7 +3,7 @@ import CategorySpecific from './CategorySpecific';
 
 
 const Categories = (props) => {
-
+console.log(props.data)
     return (
         <div className="card card-background" style={{ flex: '1', minWidth: '300px', maxWidth: '45%' }}>
             <div className="card-body">
