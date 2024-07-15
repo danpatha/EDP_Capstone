@@ -84,7 +84,7 @@ app.post('/sports/cart', async (req, res) => {
         //res.status(201).send(`{"_id":"${result.insertedId}"}`);
     } catch (err) {
         console.error('Error:', err);
-        res.status(500).send('Hmm, something doesn\'t smell right... Error adding sock');
+        res.status(500).send('Hmm, something doesn\'t smell right... Error adding product');
     }
 });
 
