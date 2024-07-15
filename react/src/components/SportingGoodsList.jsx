@@ -1,7 +1,11 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import { Link } from 'react-router-dom';
 
 const SportingGoodsList = (props) => {
+    const formatPrice = useMemo(() =>{
+        const formatter = new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"})
+        return formatter.format(props.data.Price)
+        },[props.data.Price]);
 
     return (
         <div className="card card-background" style={{ flex: '1', minWidth: '300px', maxWidth: '45%' }}>
@@ -9,7 +13,7 @@ const SportingGoodsList = (props) => {
                <Link to={`/product/${props.data._id}`}>
                 <div className="card-text">Brand: {props.data.brand}</div>
                 </Link> 
-                <div className="card-text">Price: {props.data.Price}</div>
+                <div className="card-text">Price: {formatPrice}</div>
                 <div className="card-text">Category: {props.data.Categories}</div>
                 {/* <div className="card-text">Condition: {props.data.sockDetails.condition}</div>
                 <div className="card-text">For Foot: {props.data.sockDetails.forFoot}</div>
