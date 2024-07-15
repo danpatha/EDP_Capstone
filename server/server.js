@@ -74,6 +74,20 @@ app.post('/sports/search', async (req, res) => {
     }
 });
 
+app.post('/sports/cart', async (req, res) => {
+    try {
+        const product  = req.body;
+        const client = await MongoClient.connect(url);
+        const db = client.db(dbName);
+        const collection = db.collection('cart');
+        const result = await collection.insertOne(product);
+        //res.status(201).send(`{"_id":"${result.insertedId}"}`);
+    } catch (err) {
+        console.error('Error:', err);
+        res.status(500).send('Hmm, something doesn\'t smell right... Error adding sock');
+    }
+});
+
 app.delete('/sports/:id', async (req, res) => {
     try {
         const { id } = req.params;
