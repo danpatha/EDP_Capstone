@@ -1,9 +1,8 @@
 import csv
 import random
-from datetime import datetime, timedelta
 import json
-import numpy as np
-import pandas as pd
+# import numpy as np
+# import pandas as pd
 
 NUM_ROWS = 5000
 
@@ -23,10 +22,11 @@ for i in range(1, NUM_ROWS + 1):
         ["XS", "S", "M", "L", "XL", "XXL"]
     )
     categories = random.choice(['Cycling','Women Clothing','Men Clothing','Camping and Hiking', 'Water and Snow Sports', 'Accessories'])
+    objects = random.choice(['shoes','socks', 'shirts', 'pants', 'jackets','shorts','underwear', 'helmet','bags','books',
+                             'bikes','tent','kitchen','parts','beds','lights','skis','boats','paddles', 'ropes'])
     popularity = random.randint(1, 100)
     durability = random.randint(1, 100)
     price = random.randint(1, 2000)
-    
 
     # Select a random home world from the available options
     brand = random.choice(brands)
@@ -37,6 +37,7 @@ for i in range(1, NUM_ROWS + 1):
         unit_id,
         size,
         categories,
+        objects,
         popularity,durability,
         price,
         brand_name,
@@ -49,7 +50,7 @@ for i in range(1, NUM_ROWS + 1):
 with open(OUTPUT_FILE, "w", newline="") as file:
     writer = csv.writer(file)
     writer.writerow(
-        ["unit_id", "Size", "Categories", "Popularity", "Durability", "Price", "brand"]
+        ["unit_id", "Size", "Categories","Objects", "Popularity", "Durability", "Price", "brand"]
     )
     writer.writerows(data_rows)
 
