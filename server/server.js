@@ -75,6 +75,8 @@ app.post('/sports/search', async (req, res) => {
     }
 });
 
+
+
 app.post('/sports/cart', async (req, res) => {
     try {
         const product  = req.body;
@@ -122,6 +124,21 @@ app.delete('/sports/:id', async (req, res) => {
         res.status(500).send('Hmm, something doesn\'t smell right... Error deleting sock');
     }
 });
+
+app.post('/sports/transactions', async (req, res) => {
+    try {
+        const transaction  = req.body;
+        const client = await MongoClient.connect(url);
+        const db = client.db(dbName);
+        const collection = db.collection("transactions");
+        const result = await collection.insertOne(transaction);
+        res.status(201).send(`{"_id":"${result.insertedId}"}`);
+    } catch (err) {
+        console.error('Error:', err);
+        res.status(500).send('Hmm, something doesn\'t smell right... Error adding sock');
+    }
+});
+
 
 app.post('/sports', async (req, res) => {
     try {
