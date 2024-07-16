@@ -1,8 +1,10 @@
-from pymongo import MongoClient
-import pandas as pd
-import pickle
-from sklearn.neighbors import NearestNeighbors
-import flask as fl
+from pymongo import MongoClient;
+import pandas as pd;
+import pickle;
+from sklearn.neighbors import NearestNeighbors;
+
+
+
 
 uri = 'mongodb://localhost:27017'
 cli = MongoClient(uri)
