@@ -1,3 +1,3 @@
 # Shop Til You Drop EDP Capstone
-Welcome to The Sock Exchange - your one-stop-shop for reuniting lost soles!
-Ever find yourself socked with a lonely leftie, or perhaps a solitary rightie, pining for its partner? Fear not, for The Sock Exchange is here to save the day (and your feet) from mismatched misery. Our innovative platform is dedicated to the noble cause of re-pairing the unpaired, ensuring that every sock finds its soulmate.
+Welcome to The Sports Supply - your one-stop-shop for reuniting outdoor sporting goods!
+Ever find yourself at home with no desire to be there, or perhaps an inkling to be outside, pining to use your outdoor voice? Fear not, for The Sports Supply is here to save the day (and your mood) from mismatched misery.
