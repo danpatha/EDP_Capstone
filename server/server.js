@@ -6,6 +6,7 @@ import cors from 'cors';
 import {PythonShell} from 'python-shell';
 
 dotenv.config();
+const path = process.env.SERVER_JS_PATH;
 const url = "mongodb://localhost:27017";
 const dbName = process.env.MONGO_DB;
 const collectionName = process.env.MONGO_DB_COLLECTION;
@@ -75,6 +76,8 @@ app.post('/sports/search', async (req, res) => {
     }
 });
 
+
+
 app.post('/sports/cart', async (req, res) => {
     try {
         const product  = req.body;
@@ -83,7 +86,7 @@ app.post('/sports/cart', async (req, res) => {
         const collection = db.collection('cart');
         collection.deleteMany({})
         const result = await collection.insertOne(product);
-        PythonShell.run('C:\\bootcamp capstone\\EDP_Capstone\\python\\app.py', null).then(messages=>{
+        PythonShell.run(path, null).then(messages=>{
             console.log('finished');
           });
         res.status(201).send(`{"_id":"${result.insertedId}"}`);
@@ -123,6 +126,21 @@ app.delete('/sports/:id', async (req, res) => {
         res.status(500).send('Hmm, something doesn\'t smell right... Error deleting sock');
     }
 });
+
+app.post('/sports/transactions', async (req, res) => {
+    try {
+        const transaction  = req.body;
+        const client = await MongoClient.connect(url);
+        const db = client.db(dbName);
+        const collection = db.collection("transactions");
+        const result = await collection.insertOne(transaction);
+        res.status(201).send(`{"_id":"${result.insertedId}"}`);
+    } catch (err) {
+        console.error('Error:', err);
+        res.status(500).send('Hmm, something doesn\'t smell right... Error adding sock');
+    }
+});
+
 
 app.post('/sports', async (req, res) => {
     try {
