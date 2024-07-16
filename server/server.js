@@ -99,9 +99,9 @@ app.get('/sports/recs', async (req, res) => {
     try {
         const product  = req.body;
         const client = await MongoClient.connect(url);
-        const db = client.db(dbName);
+        const db = client.db('rei');
         const collection = db.collection('recommended');
-        const result = await collection.find();
+        const result = await  collection.find({}).toArray();
         res.json(result);
     } catch (err) {
         console.error('Error:', err);
