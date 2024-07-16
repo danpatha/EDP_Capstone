@@ -10,11 +10,13 @@ const SportingGoodsList = (props) => {
     return (
         <div className="card card-background" style={{ flex: '1', minWidth: '300px', maxWidth: '45%' }}>
             <div className="card-body">
-               <Link to={`/product/${props.data._id}`}>
+               <Link className="boxhead" to={`/product/${props.data._id}`}>
+               <div className="card-text">Item: {props.data.Objects}</div>
+               
                 <div className="card-text">Brand: {props.data.brand}</div>
-                </Link> 
                 <div className="card-text">Price: {formatPrice}</div>
                 <div className="card-text">Category: {props.data.Categories}</div>
+                </Link>
                 {/* <div className="card-text">Condition: {props.data.sockDetails.condition}</div>
                 <div className="card-text">For Foot: {props.data.sockDetails.forFoot}</div>
             </div>

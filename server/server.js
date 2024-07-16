@@ -6,6 +6,7 @@ import cors from 'cors';
 import {PythonShell} from 'python-shell';
 
 dotenv.config();
+const path = process.env.SERVER_JS_PATH;
 const url = "mongodb://localhost:27017";
 const dbName = process.env.MONGO_DB;
 const collectionName = process.env.MONGO_DB_COLLECTION;
@@ -82,7 +83,7 @@ app.post('/sports/cart', async (req, res) => {
         const db = client.db(dbName);
         const collection = db.collection('cart');
         const result = await collection.insertOne(product);
-        PythonShell.run('C:\\bootcamp capstone\\EDP_Capstone\\python\\app.py', null).then(messages=>{
+        PythonShell.run(path, null).then(messages=>{
             console.log('finished');
           });
         //res.status(201).send(`{"_id":"${result.insertedId}"}`);
