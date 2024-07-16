@@ -68,7 +68,7 @@ app.post('/sports/search', async (req, res) => {
         const db = client.db(dbName);
         const collection = db.collection(collectionName);
         const regex = new RegExp(searchTerm, 'i'); // Create a case-insensitive regular expression
-        const sports = await collection.find({ 'brand': regex }).toArray();
+        const sports = await collection.find({ 'Objects': regex }).toArray();
         res.json(sports);
     } catch (err) {
         console.error('Error:', err);
