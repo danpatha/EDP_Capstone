@@ -17,7 +17,7 @@ with open("brands.json") as json_file:
 data_rows = []
 for i in range(1, NUM_ROWS + 1):
     # Generate random values for each column
-    unit_id = i
+    _id = i
     size = random.choice(
         ["XS", "S", "M", "L", "XL", "XXL"]
     )
@@ -34,7 +34,7 @@ for i in range(1, NUM_ROWS + 1):
 
     # Create the data row
     data_row = [
-        unit_id,
+        _id,
         size,
         categories,
         objects,
@@ -50,7 +50,7 @@ for i in range(1, NUM_ROWS + 1):
 with open(OUTPUT_FILE, "w", newline="") as file:
     writer = csv.writer(file)
     writer.writerow(
-        ["unit_id", "Size", "Categories","Objects", "Popularity", "Durability", "Price", "brand"]
+        ["_id", "Size", "Categories","Objects", "Popularity", "Durability", "Price", "brand"]
     )
     writer.writerows(data_rows)
 

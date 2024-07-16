@@ -81,11 +81,12 @@ app.post('/sports/cart', async (req, res) => {
         const client = await MongoClient.connect(url);
         const db = client.db(dbName);
         const collection = db.collection('cart');
+        collection.deleteMany({})
         const result = await collection.insertOne(product);
         PythonShell.run('C:\\bootcamp capstone\\EDP_Capstone\\python\\app.py', null).then(messages=>{
             console.log('finished');
           });
-        //res.status(201).send(`{"_id":"${result.insertedId}"}`);
+        res.status(201).send(`{"_id":"${result.insertedId}"}`);
     } catch (err) {
         console.error('Error:', err);
         res.status(500).send('Hmm, something doesn\'t smell right... Error adding product');
