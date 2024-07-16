@@ -16,7 +16,7 @@ console.log(props)
 
     return (
         <div> 
-            <Link>
+            
         <div className="card" a href="#">
             <div className="card bg-light">
             <div className="card-text">Item:{props.data.Objects}</div>
@@ -26,7 +26,7 @@ console.log(props)
               
             </div>
         </div>
-        </Link>
+        
         </div>
     );
 };

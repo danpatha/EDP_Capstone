@@ -26,8 +26,8 @@ const [category, setCategory] = useState();
     // console.log(props,"Home")
     return (
         <>
-        {!props.searchTerm && <Navigator setPage={props.setPage} page={props.page} /> 
-}
+        {/* {!props.searchTerm && <Navigator setPage={props.setPage} page={props.page} />  */}
+
         <div className="card-container" style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
         <Categories data={categoryData}/>
             {

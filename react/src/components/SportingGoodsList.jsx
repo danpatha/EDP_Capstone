@@ -15,6 +15,7 @@ const SportingGoodsList = (props) => {
                
                 <div className="card-text">Brand: {props.data.brand}</div>
                 <div className="card-text">Price: {formatPrice}</div>
+                <div className="card-text">Size: {props.data.Size}</div>
                 <div className="card-text">Category: {props.data.Categories}</div>
                 </Link>
                 {/* <div className="card-text">Condition: {props.data.sockDetails.condition}</div>
